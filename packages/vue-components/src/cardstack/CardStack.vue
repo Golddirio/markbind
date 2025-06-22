@@ -1,5 +1,5 @@
 <template>
-  <div class="grid-container">
+  <div class="grid-container" :style="{ 'background-color' : backgroundColor}">
     <div class="header-row">
       <span v-if="searchable" class="search-bar">
         <template v-if="searchable">
@@ -27,7 +27,7 @@
     </div>
     <div class="container">
       <div class="row justify-content-starts gy-3">
-        <slot></slot>
+        <slot :background-color="backgroundColor"></slot>
       </div>
     </div>
   </div>
@@ -58,6 +58,10 @@ export default {
     searchable: {
       type: Boolean,
       default: false,
+    },
+    backgroundColor: {
+      type: String,
+      default: 'rgb(231 231 231)',
     },
   },
   computed: {
@@ -205,8 +209,8 @@ export default {
     }
 
     .grid-container {
-        background-color: rgb(231 231 231);
-        border-radius: 8px;
+        background-color: v-bind(backgroundcolor);
+        border-radius: 0;
         padding: 20px;
         margin: 10px 0;
     }
