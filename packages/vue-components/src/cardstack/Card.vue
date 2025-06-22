@@ -1,7 +1,11 @@
 <template>
-  <div v-show="!computeDisabled" :class="`col-md-${computedBlock}`">
+  <div
+    v-show="!computeDisabled"
+    :class="`col-md-${computedBlock}`"
+    :style="{ 'background-color': backgroundColor || parentBackgroundColor }"
+  >
     <div class="card">
-      <div class="card-body article-container" :style="computedWidth">
+      <div class="card-body article-container" :style="mergedStyle">
         <div
           v-if="hasHeader"
           ref="header"
@@ -48,6 +52,14 @@ export default {
     keywords: {
       type: String,
       default: '',
+    },
+    backgroundColor: {
+      type: String,
+      default: null,
+    },
+    cardBackgroundColor: {
+      type: String,
+      default: '#ffffff',
     },
   },
   data() {
@@ -110,6 +122,12 @@ export default {
     },
     hasTag() {
       return !!this.tag;
+    },
+    mergedStyle() {
+      return {
+        ...this.computedWidth,
+        'background-color': this.cardBackgroundColor,
+      };
     },
   },
   methods: {
